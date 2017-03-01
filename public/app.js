@@ -19,6 +19,7 @@ $(document).on("click", "p", function() {
     method: "GET",
     url: "/articles/" + thisId
   })
+
     .done(function(data) {
       console.log(data);
 
@@ -91,4 +92,6 @@ $(document).on("click", "#deletenote", function() {
       $("#notes").empty();
     });
 
+  $("#titleinput").val("");
+  $("#bodyinput").val("");
 });

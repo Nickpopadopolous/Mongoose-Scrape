@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/redditscrape");
+mongoose.connect("mongodb://localhost/redditscrape" || "mongodb://heroku_hmrbqf9b:do78o513qalvpmqulnbqd7d6gu@ds143737.mlab.com:43737/heroku_hmrbqf9b");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -151,6 +151,8 @@ app.post("/delete/:id", function (request, response) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
+var port = process.env.PORT || 3000;
+app.listen(port, function() {
+  console.log("App Running on port:", port);
+
 });
