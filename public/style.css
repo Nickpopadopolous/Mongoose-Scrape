@@ -5,13 +5,16 @@
         width: 960px;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 5%;
       }
       #articles {
         display: inline-block;
         overflow: auto;
         width: 60%;
         height: 700px;
+        border: 3px black;
+        color: red;
+        font-weight: bolder;
+
       }
       #notes {
         float: right;

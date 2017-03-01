@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 // Requiring our Note and Article models
 var Note = require("./models/Note.js");
 var Article = require("./models/Article.js");
-// Our scraping tools
+// Scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
 
@@ -52,8 +52,6 @@ app.get("/scrape", function(req, res) {
 
       result.title = $(this).children("a").text();
       result.link = $(this).children("a").attr("href");
-      console.log()
-
 
       var entry = new Article(result);
 
@@ -138,8 +136,8 @@ app.post("/articles/:id", function(req, res) {
 });
 
 app.post("/delete/:id", function (request, response) {
-  Note.findByIdAndRemove(
-    {"_id": request.params.id}, function (error) {
+  Note.find(
+    {"_id": request.params.id}.remove().exec, function (error) {
       if (err) {
         console.log(err);
       }

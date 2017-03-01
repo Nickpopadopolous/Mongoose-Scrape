@@ -1,7 +1,7 @@
 $.getJSON("/articles", function(data) {
 
   for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
+    // Display the information on the page
     $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
   }
 });
@@ -9,9 +9,9 @@ $.getJSON("/articles", function(data) {
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
-  // Empty the notes from the note section
+
   $("#notes").empty();
-  // Save the id from the p tag
+
   var thisId = $(this).attr("data-id");
 
   // Now make an ajax call for the Article
@@ -22,7 +22,7 @@ $(document).on("click", "p", function() {
 
     .done(function(data) {
       console.log(data);
-
+      // The title of the article
       $("#notes").append("<h2>" + data.title + "</h2>");
 
       $("#notes").append("<input id='titleinput' name='title' >");
@@ -44,47 +44,48 @@ $(document).on("click", "p", function() {
 
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
-  // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
+  // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
     data: {
 
       title: $("#titleinput").val(),
-
+     
       body: $("#bodyinput").val()
     }
   })
 
     .done(function(data) {
-
+ 
       console.log(data);
 
       $("#notes").empty();
     });
 
-
+  // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
 
-//When you click the deletenote button
 $(document).on("click", "#deletenote", function() {
-  // Grab the id associated with the article from the submit button
+
   var thisId = $(this).attr("data-id");
 
+  // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
-    url: "/delete/" + thisId,
+    url: "/articles/" + thisId,
     data: {
+   
       title: $("#titleinput").val(),
-
+  
       body: $("#bodyinput").val()
     }
   })
-    // With that done
+
     .done(function(data) {
 
       console.log(data);
@@ -95,3 +96,4 @@ $(document).on("click", "#deletenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+
