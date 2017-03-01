@@ -42,8 +42,8 @@ db.once("open", function() {
 
 app.get("/scrape", function(req, res) {
 //body of HTML request
-  request("https://www.reddit.com/r/Jokes/", function(error, response, html) {
-    var $ = cheerio.load(html);
+  request("https://www.reddit.com/r/Jokes/", function(error, response, body) {
+    var $ = cheerio.load(body);
 
     $("p.title").each(function(i, element) {
 
@@ -139,7 +139,7 @@ app.post("/articles/:id", function(req, res) {
 
 app.post("/delete/:id", function (request, response) {
   Note.findByIdAndRemove(
-    {"_id": req.params.id}, function (error) {
+    {"_id": request.params.id}, function (error) {
       if (err) {
         console.log(err);
       }
